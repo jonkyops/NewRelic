@@ -9,8 +9,5 @@
     'psake' = @{ DependencyType = 'PSGalleryNuget' }
     'PSDeploy' = @{ DependencyType = 'PSGalleryNuget' }
     'BuildHelpers' = @{ DependencyType = 'PSGalleryNuget' }
-    'Pester' = @{
-        DependencyType = 'PSGalleryNuget'
-        Version = '3.4.6'
-    }
+    'Pester' = @{ DependencyType = 'PSGalleryNuget' }
 }

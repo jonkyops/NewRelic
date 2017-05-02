@@ -10,7 +10,7 @@ Properties {
         $ProjectRoot = Resolve-Path "$PSScriptRoot\.."
     }
 
-    $ENV:BHPSModulePath
+    $ENV:BHModulePath
 
     $Timestamp = Get-Date -UFormat "%Y%m%d-%H%M%S"
     $PSVersion = $PSVersionTable.PSVersion.Major
@@ -51,7 +51,7 @@ Task Analyze -Depends Init {
         Write-Error -Message 'One or more Script Analyzer errors/warnings where found. Build cannot continue!'
     }
     else {
-        '`r`n Code looks clean, good job! `r`n'
+        "`r`nCode looks clean, good job!`r`n"
     }
 }
 

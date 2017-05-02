@@ -24,15 +24,15 @@
     #>
     [cmdletbinding()]
     param(
-        [string]$Path = $env:PSModulePath
+        [string]$Path = ($env:PSModulePath -split ';')[0]
     )
     $ExistingProgressPreference = "$ProgressPreference"
     $ProgressPreference = 'SilentlyContinue'
     try {
         # Bootstrap nuget if we don't have it
-        if(-not ($NugetPath = (Get-Command 'nuget.exe' -ErrorAction SilentlyContinue).Path)) {
+        if (-not ($NugetPath = (Get-Command 'nuget.exe' -ErrorAction SilentlyContinue).Path)) {
             $NugetPath = Join-Path $ENV:USERPROFILE nuget.exe
-            if(-not (Test-Path $NugetPath)) {
+            if (-not (Test-Path $NugetPath)) {
                 Invoke-WebRequest -uri 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile $NugetPath
             }
         }
