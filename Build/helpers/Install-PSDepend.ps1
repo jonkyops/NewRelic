@@ -24,7 +24,7 @@
     #>
     [cmdletbinding()]
     param(
-        [string]$Path = ($env:PSModulePath -split ';')[0]
+        [string]$Path = $( Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'WindowsPowerShell\Modules')
     )
     $ExistingProgressPreference = "$ProgressPreference"
     $ProgressPreference = 'SilentlyContinue'
@@ -33,7 +33,11 @@
         if (-not ($NugetPath = (Get-Command 'nuget.exe' -ErrorAction SilentlyContinue).Path)) {
             $NugetPath = Join-Path $ENV:USERPROFILE nuget.exe
             if (-not (Test-Path $NugetPath)) {
-                Invoke-WebRequest -uri 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile $NugetPath
+                $IwrSplat = @{
+                    Uri = 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe'
+                    OutFile = $NugetPath
+                }
+                Invoke-WebRequest @UriSplat 
             }
         }
 
