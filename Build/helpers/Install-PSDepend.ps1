@@ -24,7 +24,7 @@
     #>
     [cmdletbinding()]
     param(
-        [string]$Path = $( Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'WindowsPowerShell\Modules')
+        [string]$Path = $( Join-Path $env:ProgramFiles 'WindowsPowerShell\Modules')
     )
     $ExistingProgressPreference = "$ProgressPreference"
     $ProgressPreference = 'SilentlyContinue'
@@ -37,7 +37,7 @@
                     Uri = 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe'
                     OutFile = $NugetPath
                 }
-                Invoke-WebRequest @UriSplat 
+                Invoke-WebRequest @IwrSplat
             }
         }
 
