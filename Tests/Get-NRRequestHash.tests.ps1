@@ -16,16 +16,24 @@ InModuleScope $ENV:BHProjectName {
 
     Describe "Get-NRRequestHash PS$PSVersion" {
 
-        Context 'Returns a dictionary object' {
+        Context 'Inputs' {
 
-            It 'Returns a dictionary object from yml' {
-                $Deployments = @( Get-NRRequestHash @Verbose @(Get-Content -Path $ProjectRoot\Tests\artifacts\  ))
-                $Deployments.Count | Should Be 1
+            BeforeEach {
+                $Input = $null
             }
 
-            It 'Handles single deployments by ps1' {
-                $Deployments = @( Get-PSDeployment @Verbose -Path $ProjectRoot\Tests\artifacts\DeploymentsSingle.psdeploy.ps1 )
-                $Deployments.Count | Should Be 1
+            It 'Accepts a dictionary object' {
+                $Input = . $ProjectRoot\Tests\artifacts\Input-DictObject.ps1
+                Get-NRRequestHash @Verbose @Input | Should Not Throw
+            }
+
+            It 'Does not accept unsupported types' {
+                $Input = . $ProjectRoot\Tests\artifacts\Input-BadInput.ps1
+                Get-NRRequestHash @Verbose @Input | Should Throw
+            }
+
+            It 'Accepts pipeline input' {
+
             }
         }
 
