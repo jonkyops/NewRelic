@@ -20,50 +20,23 @@
 .FUNCTIONALITY
     The functionality that best describes this cmdlet
 #>
-function Verb-Noun {
-    [CmdletBinding(DefaultParameterSetName='Parameter Set 1',
-                   SupportsShouldProcess=$true,
-                   PositionalBinding=$false,
-                   HelpUri = 'http://www.microsoft.com/',
-                   ConfirmImpact='Medium')]
-    [Alias()]
-    [OutputType([String])]
+function Get-NRRequestHash {
+    [CmdletBinding()]
     Param (
         # Param1 help description
         [Parameter(Mandatory=$true,
                    ValueFromPipeline=$true)]
-        [ValidateNotNull()]
         [ValidateNotNullOrEmpty()]
-        [System.Collections.Hashtable]
-        $Input,
-        
-        # Param2 help description
-        [Parameter(ParameterSetName='Parameter Set 1')]
-        [AllowNull()]
-        [AllowEmptyCollection()]
-        [AllowEmptyString()]
-        [ValidateScript({$true})]
-        [ValidateRange(0,5)]
-        [int]
-        $Param2,
-        
-        # Param3 help description
-        [Parameter(ParameterSetName='Another Parameter Set')]
-        [ValidatePattern("[a-z]*")]
-        [ValidateLength(0,15)]
-        [String]
-        $Param3
+        $BaseHash
     )
-    
+
     begin {
     }
-    
+
     process {
-        if ($pscmdlet.ShouldProcess("Target", "Operation")) {
-            
-        }
+        return $null
     }
-    
+
     end {
     }
 }

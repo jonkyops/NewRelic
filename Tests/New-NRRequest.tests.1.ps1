@@ -14,15 +14,20 @@ InModuleScope $ENV:BHProjectName {
         $Verbose.add("Verbose",$True)
     }
 
-    Describe "Get-NRRequestHash PS$PSVersion" {
+    Describe "New-NRRequest PS$PSVersion" {
 
-        Context 'Inputs' {
+        Context 'Handles GET requests' {
 
-            BeforeEach {
-                $Splat = $null
+            BeforeAll {
+
             }
 
             It 'Accepts a dictionary object' {
+                Mock -CommandName Invoke-WebRequest {
+                    [PSCustomObject]@{
+
+                    }
+                }
                 $Splat = Get-Content -Path "$ProjectRoot\Tests\artifacts\Inputs-DictObject.json" | ConvertFrom-Json
                 Get-NRRequestHash $Splat | Should Not Throw
             }
@@ -105,7 +110,6 @@ InModuleScope $ENV:BHProjectName {
             }
         }
 
-
         Context 'Handles identifying source type from ps1' {
             $Deployments = @( Get-PSDeployment @Verbose -Path $ProjectRoot\Tests\artifacts\DeploymentsMultiSource.psdeploy.ps1 )
 
@@ -125,7 +129,6 @@ InModuleScope $ENV:BHProjectName {
                 $Deployments[2].Source | Should Be (Resolve-Path "$ProjectRoot\Tests\artifacts\Modules\CrazyModule").Path
             }
         }
-
 
         Context 'Should allow user-specified, properly formed YAML' {
             $Deployments = @( Get-PSDeployment @Verbose -Path $ProjectRoot\Tests\artifacts\DeploymentsRaw.yml )
