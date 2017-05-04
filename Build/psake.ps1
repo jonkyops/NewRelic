@@ -51,7 +51,8 @@ Task Analyze -Depends Init {
         Write-Error -Message 'One or more Script Analyzer errors/warnings where found. Build cannot continue!'
     }
     else {
-        "`r`nCode looks clean, good job!`r`n"
+        "`r`nCode looks clean, good job!"
+        '`r`n'
     }
 }
 
