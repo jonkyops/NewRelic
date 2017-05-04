@@ -24,13 +24,13 @@ InModuleScope $ENV:BHProjectName {
                 }
                 # simulate a working web request
                 Mock -CommandName Invoke-WebRequest {
-                    return [HtmlWebResponseObject] @{
+                    return @{
                         StatusCode = 200
-                        Content = @{ Servers = 'Test' } | ConvertTo-Json
+                        Content = @{Servers = 'Test'} | ConvertTo-Json
                     }
                 }
 
-                (Invoke-NRRequest @Splat).GetType() | Should Be 'PSCustomObject'
+                (Invoke-NRRequest @Splat).GetType() | Should Be 'System.Management.Automation.PSCustomObject'
             }
         }
 
