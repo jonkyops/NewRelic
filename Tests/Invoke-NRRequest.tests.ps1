@@ -48,11 +48,12 @@ InModuleScope $ENV:BHProjectName {
             # Bad uri
             $Splat = @{
                 'ApiKey' = '00000000000000000000000000000000000000000000000'
-                'Uri' = 'https://api.newrelic.com/v2/servers.thisisabaduri?'
+                # this is a bad uri, no : after the https
+                'Uri' = 'https//api.newrelic.com/v2/thisisabaduri?'
                 'Method' = 'GET'
             }
             It 'Returns an error when the uri is bad' {
-                { Invoke-NRRequest @Splat } | Should Throw 'The uri provided is invalid'
+                { Invoke-NRRequest @Splat } | Should Throw 'The remote name could not be resolved:'
             }
         }
     }
