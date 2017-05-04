@@ -6,15 +6,16 @@ function Invoke-NRRequest {
         Will build a properly structured web request to use for the New Relic API. This is mostly used by other
         cmdlets and is meant to be generic, thus it will not form the body or URI needed for most requests.
     .EXAMPLE
-        Example of how to use this cmdlet
+        Invoke-NRRequest -ApiKey '1234abc' -Uri 'https://newrelic.com/someuri' -Method 'Get'
     .EXAMPLE
-        Another example of how to use this cmdlet
+        Invoke-NRRequest -ApiKey '1234abc' -Uri 'https://newrelic.com/someuri' -Method 'Post' -Body "{'Name' = 'Value'}"
     .INPUTS
-        Inputs to this cmdlet (if any)
+        [string] $ApiKey
+        [uri] $Uri
+        [string] $Method
+        [string] $Body
     .OUTPUTS
         The object returned is the content block (converted from json) from the web request response
-    .NOTES
-        General notes
     #>
     [CmdletBinding()]
     [Alias('inrr')]
@@ -24,7 +25,6 @@ function Invoke-NRRequest {
         # https://docs.newrelic.com/docs/apis/rest-api-v2/requirements/api-keys
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
-        # [ValidateLength(47,47)]
         [string] $ApiKey,
 
         # Uri for the request being made
