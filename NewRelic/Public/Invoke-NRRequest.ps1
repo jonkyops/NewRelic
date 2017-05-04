@@ -26,7 +26,7 @@ function Invoke-NRRequest {
         [ValidateNotNullOrEmpty()]
         # [ValidateLength(47,47)]
         [string] $ApiKey,
-        
+
         # Uri for the request being made
         [Parameter(Mandatory=$true)]
         [uri] $Uri,
@@ -41,10 +41,9 @@ function Invoke-NRRequest {
         [ValidateScript({$_ | ConvertFrom-Json})]
         [string] $Body
     )
-    
-    begin {
-    }
-    
+
+    begin {}
+
     process {
         Write-Verbose -Message 'Creating the X-Api-Key header'
         $Headers = @{'X-Api-Key' = $ApiKey}
@@ -60,7 +59,7 @@ function Invoke-NRRequest {
 
         Write-Verbose -Message 'Checking if a body was specified'
         if ($Body) {
-            Write-Verbose -Message 'Body was specified, adding'                                                               
+            Write-Verbose -Message 'Body was specified, adding'
             $RequestParams.Add('Body', $Body)
         }
         Write-Debug -Message ('Full Request: {0}' -f ($RequestParams | Out-String))
@@ -73,20 +72,20 @@ function Invoke-NRRequest {
             Write-Verbose -Message 'Request complete'
 
             Write-Debug -Message 'Returning response.content'
-            return $Response.Content
+            return $Response.Content | ConvertFrom-Json
         }
         catch [System.Net.WebException] {
             Write-Debug -Message 'Entering catch block'
-            $Error0 = $Error[0]
-            ($Error0.ErrorDetails | ConvertFrom-Json).Error.Title
-            #write-verbose -message ($_|gm).tostring()
-            #return ($_|gm).tostring()
+            $Error0 = $_
+            Write-Debug -Message ('Full error: {0}' -f ($Error0 | Format-List -Property * -Force | Out-String))
+
+            # if the request goes through, but returns an error, it'll usually have ErrorDetails
+            if ($Error0.ErrorDetails) { throw ($Error0.ErrorDetails | ConvertFrom-Json).Error.Title }
+            # This usually happens if the Uri is malformed
+            else { throw $Error0.Exception }
         }
-        finally {
-            Write-Debug -Message 'Entering finally block'
-        }
+        finally { Write-Debug -Message 'Entering finally block' }
     }
-    
-    end {
-    }
+
+    end {}
 }
