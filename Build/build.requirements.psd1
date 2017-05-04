@@ -6,8 +6,9 @@
     }
 
     # Grab some modules without depending on PowerShellGet
-    'psake' = @{ DependencyType = 'PSGalleryNuget' }
-    'PSDeploy' = @{ DependencyType = 'PSGalleryNuget' }
-    'BuildHelpers' = @{ DependencyType = 'PSGalleryNuget' }
-    'Pester' = @{ DependencyType = 'PSGalleryNuget' }
+    'psake' = @{ DependencyType = 'PSGalleryModule' }
+    'PSDeploy' = @{ DependencyType = 'PSGalleryModule' }
+    'BuildHelpers' = @{ DependencyType = 'PSGalleryModule' }
+    'Pester' = @{ DependencyType = 'PSGalleryModule' }
+    'PlatyPS' = @{ DependencyType = 'PSGalleryModule' }
 }
