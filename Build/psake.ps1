@@ -26,7 +26,7 @@ Properties {
 Task Default -Depends Test
 
 Task Init {
-    $lines
+    $Lines
     Set-Location $ProjectRoot
     "Build System Details:"
     Get-Item ENV:BH*
@@ -45,14 +45,13 @@ Task Analyze -Depends Init {
         "Checking $($Script.Name)..."
         $SaResults += Invoke-ScriptAnalyzer -Path $Script.FullName -Severity @('Error','Warning') -Recurse -Verbose:$false
     }
-    
+
     if ($SaResults) {
         $SaResults | Format-Table
         Write-Error -Message 'One or more Script Analyzer errors/warnings where found. Build cannot continue!'
     }
     else {
-        "`r`nCode looks clean, good job!"
-        '`r`n'
+        "Code looks clean, good job! `r`n"
     }
 }
 
@@ -80,9 +79,9 @@ Task Test -Depends Analyze {
     "`n"
 }
 
-Task Build -Depends Test {
+Task Build -Depends UpdateHelp, Test {
     $lines
-    
+
     # Load the module, read the exported functions, update the psd1 FunctionsToExport
     Set-ModuleFunctions
 
@@ -96,8 +95,16 @@ Task Build -Depends Test {
     }
 }
 
+task CreateMarkdownHelp -Depends Init {
+    $Lines
+
+    Import-Module -Name $env:BHModulePath -Force -Verbose:$false -Global
+    New-MarkdownHelp -Module $env:BHProjectName -OutputFolder "$projectRoot\docs\" -WithModulePage -Force
+    Remove-Module $env:BHProjectName
+} -description 'Create initial markdown help files'
+
 Task Deploy -Depends Build {
-    $lines
+    $Lines
 
     $Params = @{
         Path = "$ProjectRoot\Build"
