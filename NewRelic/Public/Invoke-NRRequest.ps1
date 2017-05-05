@@ -7,8 +7,12 @@ function Invoke-NRRequest {
         cmdlets and is meant to be generic, thus it will not form the body or URI needed for most requests.
     .EXAMPLE
         Invoke-NRRequest -ApiKey '1234abc' -Uri 'https://newrelic.com/someuri' -Method 'Get'
+
+        # This is a basic get request against https://newrelic.com/someuri, with no body.
     .EXAMPLE
         Invoke-NRRequest -ApiKey '1234abc' -Uri 'https://newrelic.com/someuri' -Method 'Post' -Body "{'Name' = 'Value'}"
+
+        # This is a post request against 'https://newrelic.com/someuri' including the body parameter.
     .OUTPUTS
         System.Management.Automation.PSCustomObject
         The object returned is the content block (converted from json) from the web request response.

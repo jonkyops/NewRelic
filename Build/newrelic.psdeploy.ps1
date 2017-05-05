@@ -30,6 +30,14 @@ if ($env:BHModulePath -and
                 ApiKey = $ENV:NugetApiKey
             }
         }
+        By PlatyPS {
+            FromSource 'docs'
+            To "$ProjectRoot\en-US"
+            Tagged Help, Module
+            WithOptions @{
+                Force = $true
+            }
+        }
     }
 }
 else {

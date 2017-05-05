@@ -1,0 +1,7 @@
+site_name: NewRelic Docs
+repo_url: https://github.com/JonkyOps/NewRelic
+theme: readthedocs
+pages:
+  - Home: index.md
+  - NewRelic Cmdlets:
+    - Invoke-NRRequest: Invoke-NRRequest.md
