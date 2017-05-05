@@ -58,13 +58,5 @@ if ($env:BHModulePath -and $env:BHBuildSystem -eq 'AppVeyor') {
                 Version = $env:APPVEYOR_BUILD_VERSION
             }
         }
-        By PlatyPS {
-            FromSource 'docs'
-            To "$ProjectRoot\en-US"
-            Tagged Help, Module
-            WithOptions @{
-                Force = $true
-            }
-        }
     }
 }
