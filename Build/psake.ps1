@@ -77,7 +77,7 @@ Task Test -Depends Analyze {
     "`n"
 }
 
-Task Build -Depends UpdateHelp, Test {
+Task Build -Depends Test {
     $lines
 
     # Load the module, read the exported functions, update the psd1 FunctionsToExport
@@ -103,13 +103,17 @@ task UpdateHelp -Depends Init {
         OutputFolder = "$ProjectRoot\docs\"
         WithModulePage = $true
         Force = $true
-        HelpVersion = $Version
     }
+
+    if ($Version) {
+        $Splat.Add('HelpVersion', $Version)
+    }
+
     New-MarkdownHelp @Splat
     Remove-Module $env:BHProjectName
 } -description 'Create initial markdown help files'
 
-Task Deploy -Depends Build {
+Task Deploy -Depends Build, UpdateHelp {
     $Lines
 
     $Params = @{
