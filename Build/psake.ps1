@@ -101,7 +101,6 @@ task UpdateHelp -Depends Init {
     $Splat = @{
         Module = $env:BHProjectName
         OutputFolder = "$ProjectRoot\docs\"
-        WithModulePage = $true
         Force = $true
     }
 
