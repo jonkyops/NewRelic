@@ -8,9 +8,9 @@ Locale: en-US
 
 # NewRelic Module
 ## Description
-{{Manually Enter Description Here}}
+NewRelic is a powershell module for managing NewRelic. Initially, this is mostly going to be for pulling information and metrics, but will be expanded to include other functionality.
 
 ## NewRelic Cmdlets
 ### [Invoke-NRRequest](Invoke-NRRequest.md)
-{{Manually Enter Invoke-NRRequest Description Here}}
+Builds up and submits a web request to the New Relic API.
 
