@@ -90,6 +90,7 @@ Task Build -Depends UpdateHelp, Test {
     }
     catch {
         "Failed to update version for '$env:BHProjectName': $_.`nContinuing with existing version"
+        $Version = Get-Metadata -Path $env:BHPSModuleManifest
     }
 }
 
