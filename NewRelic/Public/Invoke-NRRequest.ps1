@@ -1,7 +1,7 @@
 function Invoke-NRRequest {
     <#
     .SYNOPSIS
-        Builds up and submits a web request to the New Relic API
+        Builds up and submits a web request to the New Relic API.
     .DESCRIPTION
         Will build a properly structured web request to use for the New Relic API. This is mostly used by other
         cmdlets and is meant to be generic, thus it will not form the body or URI needed for most requests.
@@ -9,13 +9,9 @@ function Invoke-NRRequest {
         Invoke-NRRequest -ApiKey '1234abc' -Uri 'https://newrelic.com/someuri' -Method 'Get'
     .EXAMPLE
         Invoke-NRRequest -ApiKey '1234abc' -Uri 'https://newrelic.com/someuri' -Method 'Post' -Body "{'Name' = 'Value'}"
-    .INPUTS
-        [string] $ApiKey
-        [uri] $Uri
-        [string] $Method
-        [string] $Body
     .OUTPUTS
-        The object returned is the content block (converted from json) from the web request response
+        System.Management.Automation.PSCustomObject
+        The object returned is the content block (converted from json) from the web request response.
     #>
     [CmdletBinding()]
     [Alias('inrr')]
