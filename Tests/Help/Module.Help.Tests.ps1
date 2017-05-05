@@ -45,7 +45,7 @@ Pester module.
 #Requires -Module @{ModuleName = 'Pester'; ModuleVersion = '3.4.0'}
 
 
-[ValidateNotNullOrEmpty()]$Manifest = Get-ChildItem $PSScriptRoot\..\..\PSDeploy\PSDeploy.psd1 -Recurse
+[ValidateNotNullOrEmpty()]$Manifest = Get-ChildItem $PSScriptRoot\..\..\NewRelic\NewRelic.psd1 -Recurse
 $ModuleName = $Manifest.BaseName
 [ValidateNotNullOrEmpty()]$RequiredVersion = ($Manifest | Select-String -Pattern "^ModuleVersion = '([\d\.]*)'$").Matches.Groups.value[1]
 
