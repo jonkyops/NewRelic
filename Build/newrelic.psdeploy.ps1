@@ -30,6 +30,14 @@ if ($env:BHModulePath -and
                 ApiKey = $ENV:NugetApiKey
             }
         }
+        By PlatyPS {
+            FromSource 'docs'
+            To "$ProjectRoot\en-US"
+            Tagged Help, Module
+            WithOptions @{
+                Force = $true
+            }
+        }
     }
 }
 else {
@@ -48,6 +56,14 @@ if ($env:BHModulePath -and $env:BHBuildSystem -eq 'AppVeyor') {
             To AppVeyor
             WithOptions @{
                 Version = $env:APPVEYOR_BUILD_VERSION
+            }
+        }
+        By PlatyPS {
+            FromSource 'docs'
+            To "$ProjectRoot\en-US"
+            Tagged Help, Module
+            WithOptions @{
+                Force = $true
             }
         }
     }
