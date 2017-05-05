@@ -7,7 +7,7 @@ schema: 2.0.0
 # Invoke-NRRequest
 
 ## SYNOPSIS
-Builds up and submits a web request to the New Relic API
+Builds up and submits a web request to the New Relic API.
 
 ## SYNTAX
 
@@ -98,14 +98,10 @@ Accept wildcard characters: False
 
 ## INPUTS
 
-### [string] $ApiKey
-[uri] $Uri
-[string] $Method
-[string] $Body
-
 ## OUTPUTS
 
-### The object returned is the content block (converted from json) from the web request response
+### System.Management.Automation.PSCustomObject
+The object returned is the content block (converted from json) from the web request response.
 
 ## NOTES
 

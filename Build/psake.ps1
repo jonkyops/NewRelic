@@ -110,7 +110,7 @@ task UpdateHelp -Depends Init {
 
     New-MarkdownHelp @Splat
     Remove-Module $env:BHProjectName
-} -description 'Create initial markdown help files'
+}
 
 Task Deploy -Depends Build, UpdateHelp {
     $Lines
