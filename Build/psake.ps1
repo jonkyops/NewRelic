@@ -10,8 +10,6 @@ Properties {
         $ProjectRoot = Resolve-Path "$PSScriptRoot\.."
     }
 
-    $ENV:BHModulePath
-
     $Timestamp = Get-Date -UFormat "%Y%m%d-%H%M%S"
     $PSVersion = $PSVersionTable.PSVersion.Major
     $TestFile = "TestResults_PS$PSVersion`_$TimeStamp.xml"
@@ -95,11 +93,18 @@ Task Build -Depends UpdateHelp, Test {
     }
 }
 
-task CreateMarkdownHelp -Depends Init {
+task UpdateHelp -Depends Init {
     $Lines
 
     Import-Module -Name $env:BHModulePath -Force -Verbose:$false -Global
-    New-MarkdownHelp -Module $env:BHProjectName -OutputFolder "$projectRoot\docs\" -WithModulePage -Force
+    $Splat = @{
+        Module = $env:BHProjectName
+        OutputFolder = "$ProjectRoot\docs\"
+        WithModulePage = $true
+        Force = $true
+        HelpVersion = $Version
+    }
+    New-MarkdownHelp @Splat
     Remove-Module $env:BHProjectName
 } -description 'Create initial markdown help files'
 
@@ -109,7 +114,7 @@ Task Deploy -Depends Build {
     $Params = @{
         Path = "$ProjectRoot\Build"
         Force = $true
-        Recurse = $false # We keep psdeploy artifacts, avoid deploying those : )
+        Recurse = $false
     }
     Invoke-PSDeploy @Verbose @Params
 }
