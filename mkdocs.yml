@@ -4,4 +4,4 @@ theme: readthedocs
 pages:
   - Home: index.md
   - NewRelic Cmdlets:
-    - Quick Start: Invoke-NRRequest.md
+    - Invoke-NRRequest: Invoke-NRRequest.md
