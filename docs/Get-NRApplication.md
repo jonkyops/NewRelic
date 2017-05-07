@@ -4,15 +4,26 @@ online version:
 schema: 2.0.0
 ---
 
-# Invoke-NRRequest
+# Get-NRApplication
 
 ## SYNOPSIS
 Builds up and submits a web request to the New Relic API.
 
 ## SYNTAX
 
+### NoFilter (Default)
 ```
-Invoke-NRRequest [-ApiKey] <String> [-Uri] <Uri> [-Method] <String> [[-Body] <Hashtable>]
+Get-NRApplication -ApiKey <String>
+```
+
+### ID
+```
+Get-NRApplication -ApiKey <String> [-ID <Int32>]
+```
+
+### Name
+```
+Get-NRApplication -ApiKey <String> [-Name <String>]
 ```
 
 ## DESCRIPTION
@@ -24,17 +35,24 @@ cmdlets and is meant to be generic, thus it will not form the body or URI needed
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
-Invoke-NRRequest -ApiKey '1234abc' -Uri 'https://newrelic.com/someuri' -Method 'Get'
+Get-NRApplication -ApiKey '1234abc'
 ```
 
-# This is a basic get request against https://newrelic.com/someuri, with no body.
+# Returns all applications for the account
 
 ### -------------------------- EXAMPLE 2 --------------------------
 ```
-Invoke-NRRequest -ApiKey '1234abc' -Uri 'https://newrelic.com/someuri' -Method 'Post' -Body "{'Name' = 'Value'}"
+Get-NRApplication -ApiKey '1234abc' -Id '111931'
 ```
 
-# This is a post request against 'https://newrelic.com/someuri' including the body parameter.
+# Returns just the application object for the specified ID
+
+### -------------------------- EXAMPLE 3 --------------------------
+```
+Get-NRApplication -ApiKey '1234abc' -Name 'MyWebApp'
+```
+
+# Returns just the application object for the specified name
 
 ## PARAMETERS
 
@@ -49,54 +67,39 @@ Parameter Sets: (All)
 Aliases: 
 
 Required: True
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Uri
-Uri for the request being made
-
-```yaml
-Type: Uri
-Parameter Sets: (All)
-Aliases: 
-
-Required: True
-Position: 2
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Method
-Method to be used for the request
+### -Name
+Name of the application, can accept wildcards '*'
 
 ```yaml
 Type: String
-Parameter Sets: (All)
-Aliases: 
-
-Required: True
-Position: 3
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Body
-Extra data to be sent with the request
-
-```yaml
-Type: Hashtable
-Parameter Sets: (All)
+Parameter Sets: Name
 Aliases: 
 
 Required: False
-Position: 4
+Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -ID
+ID of the application
+
+```yaml
+Type: Int32
+Parameter Sets: ID
+Aliases: 
+
+Required: False
+Position: Named
+Default value: 0
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -105,7 +108,7 @@ Accept wildcard characters: False
 ## OUTPUTS
 
 ### System.Management.Automation.PSCustomObject
-The object returned is the content block (converted from json) from the web request response.
+The object returned is the application block (converted from json) from the web request response.
 
 ## NOTES
 

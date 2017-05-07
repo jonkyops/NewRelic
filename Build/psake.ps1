@@ -94,7 +94,25 @@ Task Build -Depends Test {
     }
 }
 
-Task Deploy -Depends Build {
+task UpdateHelp -Depends Init {
+    $Lines
+
+    Import-Module -Name $env:BHModulePath -Force -Verbose:$false -Global
+    $Splat = @{
+        Module = $env:BHProjectName
+        OutputFolder = "$ProjectRoot\docs\"
+        Force = $true
+    }
+
+    if ($Version) {
+        $Splat.Add('HelpVersion', $Version)
+    }
+
+    New-MarkdownHelp @Splat
+    Remove-Module $env:BHProjectName
+}
+
+Task Deploy -Depends UpdateHelp, Build {
     $Lines
 
     $Params = @{

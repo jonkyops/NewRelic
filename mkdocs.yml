@@ -5,3 +5,4 @@ pages:
   - Home: index.md
   - NewRelic Cmdlets:
     - Invoke-NRRequest: Invoke-NRRequest.md
+    - Get-NRApplication: Get-NRApplication.md
