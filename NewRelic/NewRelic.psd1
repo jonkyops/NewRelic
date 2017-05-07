@@ -12,7 +12,7 @@
 RootModule = 'NewRelic.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.2'
+ModuleVersion = '0.1.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -24,7 +24,7 @@ GUID = '0b12a3aa-f7b6-4835-8f35-1262faf6cb72'
 Author = 'JonkyOps'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+# CompanyName = 'Unknown'
 
 # Copyright statement for this module
 Copyright = '(c) 2017 JonkyOps. All rights reserved.'
