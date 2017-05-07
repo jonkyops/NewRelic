@@ -27,10 +27,9 @@ function Get-NRApplication {
     Param (
         # Api key for connecting to New Relic. Go to the link below for more details:
         # https://docs.newrelic.com/docs/apis/rest-api-v2/requirements/api-keys
-        [Parameter(Mandatory=$true)]
-        [Parameter(ParameterSetName='NoFilter')]
-        [Parameter(ParameterSetName='Name')]
-        [Parameter(ParameterSetName='ID')]
+        [Parameter(ParameterSetName='NoFilter', Mandatory=$true)]
+        [Parameter(ParameterSetName='Name', Mandatory=$true)]
+        [Parameter(ParameterSetName='ID', Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
         [string] $ApiKey,
 
