@@ -12,7 +12,7 @@ Builds up and submits a web request to the New Relic API.
 ## SYNTAX
 
 ```
-Invoke-NRRequest [-ApiKey] <String> [-Uri] <Uri> [-Method] <String> [[-Body] <String>]
+Invoke-NRRequest [-ApiKey] <String> [-Uri] <Uri> [-Method] <String> [[-Body] <Hashtable>]
 ```
 
 ## DESCRIPTION
@@ -27,10 +27,14 @@ cmdlets and is meant to be generic, thus it will not form the body or URI needed
 Invoke-NRRequest -ApiKey '1234abc' -Uri 'https://newrelic.com/someuri' -Method 'Get'
 ```
 
+# This is a basic get request against https://newrelic.com/someuri, with no body.
+
 ### -------------------------- EXAMPLE 2 --------------------------
 ```
 Invoke-NRRequest -ApiKey '1234abc' -Uri 'https://newrelic.com/someuri' -Method 'Post' -Body "{'Name' = 'Value'}"
 ```
+
+# This is a post request against 'https://newrelic.com/someuri' including the body parameter.
 
 ## PARAMETERS
 
@@ -82,10 +86,10 @@ Accept wildcard characters: False
 ```
 
 ### -Body
-Extra data to be sent with the request, must be in string format able to be parsed as json
+Extra data to be sent with the request
 
 ```yaml
-Type: String
+Type: Hashtable
 Parameter Sets: (All)
 Aliases: 
 
