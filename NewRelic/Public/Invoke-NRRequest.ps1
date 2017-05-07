@@ -36,17 +36,15 @@ function Invoke-NRRequest {
         [ValidateSet('get','post','put','delete')]
         [string] $Method,
 
-        # Extra data to be sent with the request, must be in string format able to be parsed as json
+        # Extra data to be sent with the request
         [Parameter(Mandatory=$false)]
-        [ValidateScript({$_ | ConvertFrom-Json})]
-        [string] $Body
+        [ValidateScript({ $_ | ConvertTo-Json })]
+        [hashtable] $Body
     )
-
-    begin {}
 
     process {
         Write-Verbose -Message 'Creating the X-Api-Key header'
-        $Headers = @{'X-Api-Key' = $ApiKey}
+        $Headers = @{ 'X-Api-Key' = $ApiKey }
         Write-Debug -Message ('Headers: {0}' -f ($Headers | Out-String))
 
         Write-Verbose -Message 'Building the request params'
@@ -72,20 +70,21 @@ function Invoke-NRRequest {
             Write-Verbose -Message 'Request complete'
 
             Write-Debug -Message 'Returning response.content'
-            return $Response.Content | ConvertFrom-Json
+            $Response.Content | ConvertFrom-Json
         }
-        catch [System.Net.WebException] {
+        catch {
             Write-Debug -Message 'Entering catch block'
             $Error0 = $_
             Write-Debug -Message ('Full error: {0}' -f ($Error0 | Format-List -Property * -Force | Out-String))
 
             # if the request goes through, but returns an error, it'll usually have ErrorDetails
-            if ($Error0.ErrorDetails) { throw ($Error0.ErrorDetails | ConvertFrom-Json).Error.Title }
-            # This usually happens if the Uri is malformed
-            else { throw $Error0.Exception }
+            if ($Error0.ErrorDetails) {
+                throw ($Error0.ErrorDetails | ConvertFrom-Json).Error.Title
+            }
+            else {
+                # This usually happens if the Uri is malformed
+                throw $Error0.Exception
+            }
         }
-        finally { Write-Debug -Message 'Entering finally block' }
     }
-
-    end {}
 }
