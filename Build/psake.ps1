@@ -34,10 +34,10 @@ Task Init {
 Task Analyze -Depends Init {
     $Lines
     $SaResults = @()
-    $Public = @(Get-ChildItem -Path $PSScriptRoot\$ModuleName\Public\*.ps1 -ErrorAction SilentlyContinue)
-    $Private = @(Get-ChildItem -Path $PSScriptRoot\$ModuleName\Private\*.ps1 -ErrorAction SilentlyContinue)
+    $Public = @(Get-ChildItem -Path $ENV:BHModulePath\Public\*.ps1 -ErrorAction SilentlyContinue)
+    $Private = @(Get-ChildItem -Path $ENV:BHModulePath\Private\*.ps1 -ErrorAction SilentlyContinue)
 
-    'Running script analyzer to check code quality `r`n'
+    "Running script analyzer to check code quality `r`n"
 
     foreach($Script in @($Public + $Private)) {
         "Checking $($Script.Name)..."
