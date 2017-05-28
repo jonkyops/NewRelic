@@ -14,6 +14,7 @@ function Invoke-NRQLQuery {
     #>
     [CmdletBinding(DefaultParameterSetName='Query')]
     param (
+        # Account ID to run the query against
         $AccountId,
         # The NRQL query to be run
         [Parameter(ParameterSetName='Query')]
