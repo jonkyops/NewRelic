@@ -6,7 +6,6 @@ Import-Module (Join-Path -Path $ENV:BHProjectPath -ChildPath $ENV:BHProjectName)
 
 InModuleScope $ENV:BHProjectName {
     $PSVersion = $PSVersionTable.PSVersion.Major
-    $ProjectRoot = $ENV:BHProjectPath
 
     $Verbose = @{}
     if ($ENV:BHBranchName -notlike "master" -or $env:BHCommitMessage -match "!verbose") {

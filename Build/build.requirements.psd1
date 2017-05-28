@@ -11,4 +11,5 @@
     'BuildHelpers' = @{ DependencyType = 'PSGalleryModule' }
     'Pester' = @{ DependencyType = 'PSGalleryModule' }
     'PlatyPS' = @{ DependencyType = 'PSGalleryModule' }
+    'PSScriptAnalyzer' = @{ DependencyType = 'PSGalleryModule' }
 }
