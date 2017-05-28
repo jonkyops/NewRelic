@@ -6,3 +6,5 @@ pages:
   - NewRelic Cmdlets:
     - Invoke-NRRequest: Invoke-NRRequest.md
     - Get-NRApplication: Get-NRApplication.md
+    - Get-NRTimeSpan: Get-NRTimeSpan.md
+    - Invoke-NRQLQuery: Invoke-NRQLQuery.md
