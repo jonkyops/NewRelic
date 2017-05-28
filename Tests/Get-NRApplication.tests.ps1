@@ -6,7 +6,6 @@ Import-Module (Join-Path -Path $ENV:BHProjectPath -ChildPath $ENV:BHProjectName)
 
 InModuleScope $ENV:BHProjectName {
     $PSVersion = $PSVersionTable.PSVersion.Major
-    $ProjectRoot = $ENV:BHProjectPath
 
     $Verbose = @{}
     if ($ENV:BHBranchName -notlike "master" -or $env:BHCommitMessage -match "!verbose") {
@@ -36,7 +35,7 @@ InModuleScope $ENV:BHProjectName {
                     "name" = "My Web Page"
                     "language" = "java"
                     "health_status" = "green"
-                    "reporting" = true
+                    "reporting" = $true
                     "last_reported_at" = "2014-07-29T23 =45 =07+00 =00"
                     "application_summary" = @{
                         "response_time" = 304
@@ -54,8 +53,8 @@ InModuleScope $ENV:BHProjectName {
                     "settings" = @{
                         "app_apdex_threshold" = 0.5
                         "end_user_apdex_threshold" = 7
-                        "enable_real_user_monitoring" = true
-                        "use_server_side_config" = true
+                        "enable_real_user_monitoring" = $true
+                        "use_server_side_config" = $true
                     }
                     "links" = @{
                         "application_instances" = (
@@ -83,7 +82,7 @@ InModuleScope $ENV:BHProjectName {
                     "name" = "My Web Page 2"
                     "language" = "python"
                     "health_status" = "red"
-                    "reporting" = true
+                    "reporting" = $true
                     "last_reported_at" = "2014-07-29T23 =45 =07+00 =00"
                     "application_summary" = @{
                         "response_time" = 304
@@ -101,8 +100,8 @@ InModuleScope $ENV:BHProjectName {
                     "settings" = @{
                         "app_apdex_threshold" = 0.6
                         "end_user_apdex_threshold" = 8
-                        "enable_real_user_monitoring" = true
-                        "use_server_side_config" = true
+                        "enable_real_user_monitoring" = $true
+                        "use_server_side_config" = $true
                     }
                     "links" = @{
                         "application_instances" = (
@@ -130,7 +129,7 @@ InModuleScope $ENV:BHProjectName {
                     "name" = "My Web Page 3"
                     "language" = "Java"
                     "health_status" = "red"
-                    "reporting" = true
+                    "reporting" = $true
                     "last_reported_at" = "2014-07-29T23 =45 =07+00 =00"
                     "application_summary" = @{
                         "response_time" = 304
@@ -148,8 +147,8 @@ InModuleScope $ENV:BHProjectName {
                     "settings" = @{
                         "app_apdex_threshold" = 0.6
                         "end_user_apdex_threshold" = 8
-                        "enable_real_user_monitoring" = true
-                        "use_server_side_config" = true
+                        "enable_real_user_monitoring" = $true
+                        "use_server_side_config" = $true
                     }
                     "links" = @{
                         "application_instances" = (

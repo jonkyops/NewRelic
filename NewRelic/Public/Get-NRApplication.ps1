@@ -27,20 +27,20 @@ function Get-NRApplication {
     Param (
         # Api key for connecting to New Relic. Go to the link below for more details:
         # https://docs.newrelic.com/docs/apis/rest-api-v2/requirements/api-keys
-        [Parameter(ParameterSetName='NoFilter', Mandatory=$true)]
-        [Parameter(ParameterSetName='Name', Mandatory=$true)]
-        [Parameter(ParameterSetName='ID', Mandatory=$true)]
+        [Parameter(ParameterSetName='NoFilter', Mandatory)]
+        [Parameter(ParameterSetName='Name', Mandatory)]
+        [Parameter(ParameterSetName='ID', Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $ApiKey,
 
         # Name of the application, can accept wildcards '*'
         [Parameter(ParameterSetName='Name',
-                   ValueFromPipeline=$true)]
+                   ValueFromPipeline)]
         [String] $Name,
 
         # ID of the application
         [Parameter(ParameterSetName='ID',
-                   ValueFromPipeline=$true)]
+                   ValueFromPipeline)]
         [Int] $ID
     )
 
@@ -106,9 +106,8 @@ function Get-NRApplication {
             Write-Debug -Message 'Application property, entering else block'
             Write-Debug -Message ('Application: {0}' -f ($Results.Application | Out-String))
             $Results.Application
-            
         }
     }
 
-    end { Write-Verbose -Message 'Complete.' }
+    end { Write-Verbose -Message 'Complete' }
 }
