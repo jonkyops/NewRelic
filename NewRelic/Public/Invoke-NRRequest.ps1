@@ -17,22 +17,35 @@ function Invoke-NRRequest {
         System.Management.Automation.PSCustomObject
         The object returned is the content block (converted from json) from the web request response.
     #>
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName='Api')]
     [Alias('inrr')]
     [OutputType([PSCustomObject])]
     Param (
         # Api key for connecting to New Relic. Go to the link below for more details:
         # https://docs.newrelic.com/docs/apis/rest-api-v2/requirements/api-keys
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory,
+                   ParameterSetName='Api')]
         [ValidateNotNullOrEmpty()]
         [string] $ApiKey,
 
+        # Query key for running queries against Insights
+        [Parameter(Mandatory,
+                   ParameterSetName='Query')]
+        [ValidateNotNullOrEmpty()]
+        [string] $QueryKey,
+
+        # Insert key for posting events to Insights
+        [Parameter(Mandatory,
+                   ParameterSetName='Insert')]
+        [ValidateNotNullOrEmpty()]
+        [string] $InsertKey,
+
         # Uri for the request being made
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory)]
         [uri] $Uri,
 
         # Method to be used for the request
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory)]
         [ValidateSet('get','post','put','delete')]
         [string] $Method,
 
@@ -43,8 +56,22 @@ function Invoke-NRRequest {
     )
 
     process {
-        Write-Verbose -Message 'Creating the X-Api-Key header'
-        $Headers = @{ 'X-Api-Key' = $ApiKey }
+        Write-Verbose -Message 'Creating the Key header'
+        switch ($PSCmdlet.ParameterSetName) {
+            'Api' {
+                Write-Verbose -Message 'Using X-Api-Key header'
+                $Headers = @{ 'X-Api-Key' = $ApiKey }
+            }
+            'Query' {
+                Write-Verbose -Message 'Using X-Query-Key header'
+                $Headers = @{ 'X-Query-Key' = $QueryKey }
+            }
+            'Insert' {
+                Write-Verbose -Message 'Using X-Insert-Key header'
+                $Headers = @{ 'X-Insert-Key' = $InsertKey }
+            }
+        }
+        
         Write-Debug -Message ('Headers: {0}' -f ($Headers | Out-String))
 
         Write-Verbose -Message 'Building the request params'
