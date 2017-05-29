@@ -1,5 +1,3 @@
-# See http://www.appveyor.com/docs/appveyor-yml for many more options
-
 #Publish to PowerShell Gallery with this key
 environment:
   NuGetApiKey:
