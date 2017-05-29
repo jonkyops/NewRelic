@@ -1,4 +1,4 @@
-#Publish to PowerShell Gallery with this key
+#Publish to PowerShell Gallery with this key 
 environment:
   NuGetApiKey:
     secure: YffNdBjaFzsIrVMuLB1Ajuy0PdXyjoiTYKMCCLoLBoSPDeFMKyaRPGrL9/WGcUvB
