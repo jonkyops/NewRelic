@@ -12,43 +12,32 @@ function Invoke-NRQLQuery {
         
         Returns the results from the query run against the accountId
     #>
-    [CmdletBinding(DefaultParameterSetName='Query')]
+    [CmdletBinding(DefaultParameterSetName = 'Query')]
     param (
         # Account ID to run the query against
         $AccountId,
         # The NRQL query to be run
-        [Parameter(ParameterSetName='Query')]
+        [Parameter(ParameterSetName = 'Query')]
         $Query,
         # QueryKey to run the NRQL query with
-        [Parameter(ParameterSetName='Query')]
+        [Parameter(ParameterSetName = 'Query')]
         $QueryKey
-        # Posting events has not been tested yet
-        # # Json body of the event being posted
-        # [Parameter(ParameterSetName='Insert')]
-        # $Body,
-        # # InsertKey to run the insert with
-        # [Parameter(ParameterSetName='Insert')]
-        # $InsertKey
     )
+    begin {
+        try { Add-Type -AssemblyName System.Web }
+        catch { throw }
+    }
+
     process {
         switch ($PSCmdlet.ParameterSetName) {
             'Query' {
                 $BaseUri = 'https://insights-api.newrelic.com/v1/accounts/{0}/query?nrql={1}'
                 $NRRequestParams = @{
                     QueryKey = $QueryKey
-                    Method = 'GET'
-                    Uri = $BaseUri -f $AccountId, [System.Web.HttpUtility]::UrlEncode($Query)
+                    Method   = 'GET'
+                    Uri      = $BaseUri -f $AccountId, [System.Web.HttpUtility]::UrlEncode($Query)
                 }
             }
-            # 'Insert' {
-            #     $BaseUri = 'https://insights-collector.newrelic.com/v1/accounts/{0}/{1}'
-            #     $NRRequestParams = @{
-            #         InsertKey = $InsertKey
-            #         Method = 'POST'
-            #         Body = $Body
-            #         Uri = $BaseUri -f $AccountId, 'events'
-            #     }
-            # }
             Default { throw }
         } 
         Invoke-NRRequest @NRRequestParams

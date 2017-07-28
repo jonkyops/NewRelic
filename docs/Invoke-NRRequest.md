@@ -11,8 +11,19 @@ Builds up and submits a web request to the New Relic API.
 
 ## SYNTAX
 
+### Api (Default)
 ```
-Invoke-NRRequest [-ApiKey] <String> [-Uri] <Uri> [-Method] <String> [[-Body] <Hashtable>]
+Invoke-NRRequest -ApiKey <String> -Uri <Uri> -Method <String> [-Body <Hashtable>]
+```
+
+### Query
+```
+Invoke-NRRequest -QueryKey <String> -Uri <Uri> -Method <String> [-Body <Hashtable>]
+```
+
+### Insert
+```
+Invoke-NRRequest -InsertKey <String> -Uri <Uri> -Method <String> [-Body <Hashtable>]
 ```
 
 ## DESCRIPTION
@@ -45,11 +56,41 @@ https://docs.newrelic.com/docs/apis/rest-api-v2/requirements/api-keys
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: Api
 Aliases: 
 
 Required: True
-Position: 1
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -QueryKey
+Query key for running queries against Insights
+
+```yaml
+Type: String
+Parameter Sets: Query
+Aliases: 
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -InsertKey
+Insert key for posting events to Insights
+
+```yaml
+Type: String
+Parameter Sets: Insert
+Aliases: 
+
+Required: True
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -64,7 +105,7 @@ Parameter Sets: (All)
 Aliases: 
 
 Required: True
-Position: 2
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -79,7 +120,7 @@ Parameter Sets: (All)
 Aliases: 
 
 Required: True
-Position: 3
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -94,7 +135,7 @@ Parameter Sets: (All)
 Aliases: 
 
 Required: False
-Position: 4
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
